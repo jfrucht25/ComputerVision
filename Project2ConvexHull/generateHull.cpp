@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
     }
     swap(points[0], points[min]);
     pivot = points[0];
-    qsort(&points[1], N - 1, sizeof(Point), compAngle);
+    qsort(&points[1], static_cast<size_t>(N - 1), sizeof(Point), compAngle);
     stack <Point> s;
     s.push(points[0]);
     s.push(points[1]);
@@ -147,10 +147,10 @@ int main(int argc, char **argv) {
     ofstream file;
     file.open("out.ppm");
     file << "P3  800  800  1" << endl;
-    for (auto &pixel : pixels) {
-        for (int j : pixel) {
+    for (int i = 0; i<SIZE; i++) {
+        for (int j=0; j<SIZE; j++) {
             for (int k = 0; k < 3; k++) {
-                file << j << " ";
+                file << pixels[j][i] << " ";
             }
         }
         file << endl;
