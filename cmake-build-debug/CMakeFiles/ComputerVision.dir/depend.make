@@ -3,5 +3,3 @@
 
 CMakeFiles/ComputerVision.dir/Project2ConvexHull/andrews.cpp.o: ../Project2ConvexHull/andrews.cpp
 
-CMakeFiles/ComputerVision.dir/Project2ConvexHull/generateHull.cpp.o: ../Project2ConvexHull/generateHull.cpp
-

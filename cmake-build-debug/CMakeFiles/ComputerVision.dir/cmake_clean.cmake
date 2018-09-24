@@ -1,5 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ComputerVision.dir/Project2ConvexHull/generateHull.cpp.o"
   "CMakeFiles/ComputerVision.dir/Project2ConvexHull/andrews.cpp.o"
   "ComputerVision.pdb"
   "ComputerVision"

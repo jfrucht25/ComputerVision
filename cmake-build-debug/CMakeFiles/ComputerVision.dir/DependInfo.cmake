@@ -5,7 +5,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/james/CLionProjects/computervision/Project2ConvexHull/andrews.cpp" "/home/james/CLionProjects/computervision/cmake-build-debug/CMakeFiles/ComputerVision.dir/Project2ConvexHull/andrews.cpp.o"
-  "/home/james/CLionProjects/computervision/Project2ConvexHull/generateHull.cpp" "/home/james/CLionProjects/computervision/cmake-build-debug/CMakeFiles/ComputerVision.dir/Project2ConvexHull/generateHull.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

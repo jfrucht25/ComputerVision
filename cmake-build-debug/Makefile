@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/james/CLionProjects/computervision/cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/james/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/james/Downloads/clion-2018.2.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named ComputerVision
+# Target rules for targets named main
 
 # Build rule for target.
-ComputerVision: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ComputerVision
-.PHONY : ComputerVision
+main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-ComputerVision/fast:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/build
-.PHONY : ComputerVision/fast
+main/fast:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
 
 Project2ConvexHull/andrews.o: Project2ConvexHull/andrews.cpp.o
 
@@ -129,7 +129,7 @@ Project2ConvexHull/andrews.o: Project2ConvexHull/andrews.cpp.o
 
 # target to build an object file
 Project2ConvexHull/andrews.cpp.o:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/Project2ConvexHull/andrews.cpp.o
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Project2ConvexHull/andrews.cpp.o
 .PHONY : Project2ConvexHull/andrews.cpp.o
 
 Project2ConvexHull/andrews.i: Project2ConvexHull/andrews.cpp.i
@@ -138,7 +138,7 @@ Project2ConvexHull/andrews.i: Project2ConvexHull/andrews.cpp.i
 
 # target to preprocess a source file
 Project2ConvexHull/andrews.cpp.i:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/Project2ConvexHull/andrews.cpp.i
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Project2ConvexHull/andrews.cpp.i
 .PHONY : Project2ConvexHull/andrews.cpp.i
 
 Project2ConvexHull/andrews.s: Project2ConvexHull/andrews.cpp.s
@@ -147,35 +147,8 @@ Project2ConvexHull/andrews.s: Project2ConvexHull/andrews.cpp.s
 
 # target to generate assembly for a file
 Project2ConvexHull/andrews.cpp.s:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/Project2ConvexHull/andrews.cpp.s
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Project2ConvexHull/andrews.cpp.s
 .PHONY : Project2ConvexHull/andrews.cpp.s
-
-Project2ConvexHull/generateHull.o: Project2ConvexHull/generateHull.cpp.o
-
-.PHONY : Project2ConvexHull/generateHull.o
-
-# target to build an object file
-Project2ConvexHull/generateHull.cpp.o:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/Project2ConvexHull/generateHull.cpp.o
-.PHONY : Project2ConvexHull/generateHull.cpp.o
-
-Project2ConvexHull/generateHull.i: Project2ConvexHull/generateHull.cpp.i
-
-.PHONY : Project2ConvexHull/generateHull.i
-
-# target to preprocess a source file
-Project2ConvexHull/generateHull.cpp.i:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/Project2ConvexHull/generateHull.cpp.i
-.PHONY : Project2ConvexHull/generateHull.cpp.i
-
-Project2ConvexHull/generateHull.s: Project2ConvexHull/generateHull.cpp.s
-
-.PHONY : Project2ConvexHull/generateHull.s
-
-# target to generate assembly for a file
-Project2ConvexHull/generateHull.cpp.s:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/Project2ConvexHull/generateHull.cpp.s
-.PHONY : Project2ConvexHull/generateHull.cpp.s
 
 # Help Target
 help:
@@ -183,15 +156,12 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... ComputerVision"
+	@echo "... edit_cache"
+	@echo "... main"
 	@echo "... Project2ConvexHull/andrews.o"
 	@echo "... Project2ConvexHull/andrews.i"
 	@echo "... Project2ConvexHull/andrews.s"
-	@echo "... Project2ConvexHull/generateHull.o"
-	@echo "... Project2ConvexHull/generateHull.i"
-	@echo "... Project2ConvexHull/generateHull.s"
 .PHONY : help
 
 

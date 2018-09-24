@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/ComputerVision.dir/Project2ConvexHull/generateHull.cpp.o CMakeFiles/ComputerVision.dir/Project2ConvexHull/andrews.cpp.o  -o ComputerVision 
+/usr/bin/c++  -g   CMakeFiles/ComputerVision.dir/Project2ConvexHull/andrews.cpp.o  -o ComputerVision 

@@ -65,39 +65,39 @@ CMAKE_SOURCE_DIR = /home/james/CLionProjects/computervision
 CMAKE_BINARY_DIR = /home/james/CLionProjects/computervision/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/ComputerVision.dir
+# Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
-CMakeFiles/ComputerVision.dir/all:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/depend
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/james/CLionProjects/computervision/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target ComputerVision"
-.PHONY : CMakeFiles/ComputerVision.dir/all
+CMakeFiles/main.dir/all:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/james/CLionProjects/computervision/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target main"
+.PHONY : CMakeFiles/main.dir/all
 
 # Include target in all.
-all: CMakeFiles/ComputerVision.dir/all
+all: CMakeFiles/main.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ComputerVision.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/james/CLionProjects/computervision/cmake-build-debug/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ComputerVision.dir/all
+CMakeFiles/main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/james/CLionProjects/computervision/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/james/CLionProjects/computervision/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/ComputerVision.dir/rule
+.PHONY : CMakeFiles/main.dir/rule
 
 # Convenience name for target.
-ComputerVision: CMakeFiles/ComputerVision.dir/rule
+main: CMakeFiles/main.dir/rule
 
-.PHONY : ComputerVision
-
-# clean rule for target.
-CMakeFiles/ComputerVision.dir/clean:
-	$(MAKE) -f CMakeFiles/ComputerVision.dir/build.make CMakeFiles/ComputerVision.dir/clean
-.PHONY : CMakeFiles/ComputerVision.dir/clean
+.PHONY : main
 
 # clean rule for target.
-clean: CMakeFiles/ComputerVision.dir/clean
+CMakeFiles/main.dir/clean:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
+.PHONY : CMakeFiles/main.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/main.dir/clean
 
 .PHONY : clean
 
