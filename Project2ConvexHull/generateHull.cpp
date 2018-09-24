@@ -150,7 +150,7 @@ int main(int argc, char **argv) {
     for (int i = 0; i<SIZE; i++) {
         for (int j=0; j<SIZE; j++) {
             for (int k = 0; k < 3; k++) {
-                file << pixels[j][i] << " ";
+                file << pixels[i][j] << " ";
             }
         }
         file << endl;

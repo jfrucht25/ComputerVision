@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/james/CLionProjects/computervision/Project2ConvexHull/andrews.cpp
+iostream
+-
+cmath
+-
+fstream
+-
+vector
+-
+stack
+-
+string
+-
+algorithm
+-
+ctime
+-
+
+/home/james/CLionProjects/computervision/Project2ConvexHull/generateHull.cpp
+iostream
+-
+cmath
+-
+fstream
+-
+vector
+-
+stack
+-
+string
+-
+algorithm
+-
+ctime
+-
+

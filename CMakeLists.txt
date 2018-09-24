@@ -4,4 +4,4 @@ project(ComputerVision)
 set(CMAKE_CXX_STANDARD 14)
 
 
-add_executable(ComputerVision Project2ConvexHull/generateHull.cpp)
+add_executable(ComputerVision Project2ConvexHull/generateHull.cpp Project2ConvexHull/andrews.cpp)
