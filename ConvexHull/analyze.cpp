@@ -1,10 +1,5 @@
-//
-// Created by james on 9/23/18.
-//
-
 #pragma GCC optimize("O3")
 #pragma GCC target("sse4")
-
 
 #include <iostream>
 #include <cmath>
@@ -56,6 +51,7 @@ ostream &operator<<(ostream &strm, const Point &p) {
     return strm << "(" << p.x << "," << p.y << ")";
 }
 
+Point pivot;
 
 long cross(Point a, Point b, Point c) {
     double c1 = (b.x - a.x) * (a.y-c.y);
@@ -63,9 +59,24 @@ long cross(Point a, Point b, Point c) {
     double t = c1 - c2;
     return t;
 }
-Point pivot;
+int orientation(Point p, Point q, Point r) 
+{ 
+    int val = (q.y - p.y) * (r.x - q.x) - 
+              (q.x - p.x) * (r.y - q.y); 
+  
+    if (val == 0) return 0; 
+    return (val > 0)? 1: 2;
+} 
+
+int distSq(Point p1, Point p2){
+	return (p1.x-p2.x)*(p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y);
+}
+
 bool angle(Point a, Point b){
-		return (a.y-pivot.y)/(double)(a.x-pivot.x) < (b.y-pivot.y)/(double)(b.x-pivot.x);
+	double i = (a.y-pivot.y)/(double)(a.x-pivot.x);
+	double j = (b.y-pivot.y)/(double)(b.x-pivot.x);
+	if (i==j) return distSq(pivot, a) < distSq(pivot, b);
+	return i < j;
 }
 
 bool inTriangle(Point p, Point a, Point b, Point c){
@@ -107,35 +118,19 @@ void drawline(int (&pix)[SIZE][SIZE], Point p1, Point p2) {
     }
 }
 
-int main(int argc, char **argv) {
-    int N;
-    if (argc == 2) N = atoi(argv[1]);
-    else cin >> N;
-    cout << "N is " << N << endl;
-    int pixels[SIZE][SIZE];
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            pixels[i][j] = 1;
-        }
-    }
-    srand(time(NULL));
-    vector<Point> points;
+vector<Point> triangleHull(int N){
+    	vector<Point> points;
 
-    for (int i = 0; i < N; i++) {
-        Point p;
-        p.x = rand() % SIZE;
-        p.y = rand() % SIZE;
-        points.push_back(p);
-        p.draw(pixels);
-    }
-    sort(points.begin(), points.end());
-    cout << "The points are:" << endl;
-    for (int i = 0; i < N; i++) {
-        cout << "(" << points[i].x << "," << points[i].y << ")" << endl;
-    }
-    vector<Point> hull = points;
-    
-    for(int x=0; x < hull.size(); x++){
+    	for (int i = 0; i < N; i++) {
+		Point p;
+		p.x = rand() % SIZE;
+		p.y = rand() % SIZE;
+		points.push_back(p);
+	}
+	sort(points.begin(), points.end());
+	vector<Point> hull = points;
+
+	for(int x=0; x < hull.size(); x++){
 			for(int i = 0; i<hull.size(); i++){
 				for(int j = 0; j<hull.size(); j++){
 					for(int k = 0; k<hull.size(); k++){
@@ -148,27 +143,74 @@ int main(int argc, char **argv) {
 			}
 	}
 	pivot = hull[0];
-    sort(hull.begin(), hull.end(), angle);
-    cout << "The hull is: " << endl;
-    cout << "(" << hull[0].x << "," << hull[0].y << ")" << endl;
-    for (int i = 1; i < hull.size(); i++) {
-        drawline(pixels, hull[i - 1], hull[i]);
-        cout << "(" << hull[i].x << "," << hull[i].y << ")" << endl;
-    }
-    drawline(pixels, hull[0], hull[hull.size() - 1]);
-    ofstream file;
-    file.open("out.ppm");
-    file << "P3  " << SIZE << " " << SIZE << " 1" << endl;
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            for (int k = 0; k < 3; k++) {
-                file << pixels[i][j] << " ";
-            }
-        }
-        file << endl;
-    }
-    file.close();
-    return 0;
+	sort(hull.begin(), hull.end(), angle);
+	return hull;
 }
 
+vector<Point> andrewsHull(int N){
+	vector<Point> points;
 
+    for (int i = 0; i < N; i++) {
+        Point p;
+        p.x = rand() % SIZE;
+        p.y = rand() % SIZE;
+        points.push_back(p);
+    }
+    sort(points.begin(), points.end());
+    vector<Point> lower;
+    for (int i = 0; i < N; ++i) {
+        while (lower.size() >= 2 && (cross(lower[lower.size() - 2], lower[lower.size() - 1], points[i]) <= 0)) {
+            lower.pop_back();
+        }
+        lower.push_back(points[i]);
+    }
+    vector<Point> upper;
+
+    for (int i = N - 1; i >= 0; i--) {
+        while (upper.size() >= 2 && (cross(upper[upper.size() - 2], upper[upper.size() - 1], points[i]) <= 0)) {
+            upper.pop_back();
+        }
+        upper.push_back(points[i]);
+    }
+    lower.pop_back();
+    vector<Point> hull;
+    hull.insert(hull.end(), lower.begin(), lower.end());
+    hull.insert(hull.end(), upper.begin(), upper.end());
+	return hull;
+}
+int main(int argc, char* argv[]){
+	ofstream file;
+	file.open("output.txt");
+	cout << "N\tGraham\tTriangle\n";
+	file << "N\tGraham\tTriangle\n";
+	clock_t t1, t2;
+	float diff;
+	for(int i=20; i<500; i+=20){
+    		cout << i << "\t";
+		file << i << "\t";
+		t1=clock();
+		andrewsHull(i);
+		t2=clock();
+		diff = ((float)t2-(float)t1)/CLOCKS_PER_SEC;	
+    		cout << diff << "\t";
+    		file << diff << "\t";
+		t1=clock();
+		triangleHull(i);
+		t2=clock();
+		diff = ((float)t2-(float)t1)/CLOCKS_PER_SEC;
+		cout << diff << "\n";
+    		file << diff << "\n";
+	}
+	for(int i=2000; i<2000000; i+=2000){
+    	cout << i << "\t";
+		file << i << "\t";
+		t1=clock();
+		andrewsHull(i);
+		t2=clock();
+		diff = ((float)t2-(float)t1)/CLOCKS_PER_SEC;	
+    		cout << diff << "\n";
+		file << diff << "\n";
+	}
+	file.close();
+	return 0;
+}

@@ -1,10 +1,8 @@
 //
 // Created by james on 9/23/18.
 //
-
 #pragma GCC optimize("O3")
 #pragma GCC target("sse4")
-
 
 #include <iostream>
 #include <cmath>
@@ -63,6 +61,14 @@ long cross(Point a, Point b, Point c) {
     double t = c1 - c2;
     return t;
 }
+int orientation(Point p, Point q, Point r) 
+{ 
+    int val = (q.y - p.y) * (r.x - q.x) - 
+              (q.x - p.x) * (r.y - q.y); 
+  
+    if (val == 0) return 0; 
+    return (val > 0)? 1: 2;
+} 
 Point pivot;
 bool angle(Point a, Point b){
 		return (a.y-pivot.y)/(double)(a.x-pivot.x) < (b.y-pivot.y)/(double)(b.x-pivot.x);
@@ -133,22 +139,34 @@ int main(int argc, char **argv) {
     for (int i = 0; i < N; i++) {
         cout << "(" << points[i].x << "," << points[i].y << ")" << endl;
     }
-    vector<Point> hull = points;
+	pivot = points[0];
+	
+    sort(points.begin()+1, points.end(), angle);
     
-    for(int x=0; x < hull.size(); x++){
-			for(int i = 0; i<hull.size(); i++){
-				for(int j = 0; j<hull.size(); j++){
-					for(int k = 0; k<hull.size(); k++){
-						if(inTriangle(hull[x], hull[i], hull[j], hull[k])){
-								hull.erase(hull.begin()+x);
-								x--;
-						}
-					}
-				}
+    stack<Point> s;
+    s.push(points[0]);
+    s.push(points[1]);
+    s.push(points[2]);
+    for (int i=3; i<points.size(); i++){
+			Point t = s.top();
+			s.pop();
+			Point nextToTop = s.top();
+			s.push(t);
+			while (orientation(nextToTop, t, points[i]) != 2){
+				s.pop();
+				t = s.top();
+				s.pop();
+				nextToTop = s.top();
+				s.push(t);
 			}
+			s.push(points[i]);
 	}
-	pivot = hull[0];
-    sort(hull.begin(), hull.end(), angle);
+    vector<Point> hull;
+    while(!s.empty()){
+		hull.push_back(s.top());
+		s.pop();
+	}
+    
     cout << "The hull is: " << endl;
     cout << "(" << hull[0].x << "," << hull[0].y << ")" << endl;
     for (int i = 1; i < hull.size(); i++) {

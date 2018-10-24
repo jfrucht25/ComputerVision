@@ -2,10 +2,6 @@
 // Created by james on 9/23/18.
 //
 
-#pragma GCC optimize("O3")
-#pragma GCC target("sse4")
-
-
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -63,16 +59,7 @@ long cross(Point a, Point b, Point c) {
     double t = c1 - c2;
     return t;
 }
-Point pivot;
-bool angle(Point a, Point b){
-		return (a.y-pivot.y)/(double)(a.x-pivot.x) < (b.y-pivot.y)/(double)(b.x-pivot.x);
-}
 
-bool inTriangle(Point p, Point a, Point b, Point c){
-		if((cross(a,b,p) < 0) && (cross(b,c,p) < 0) && (cross(c,a,p) < 0)) return true;
-		if((cross(a,b,p) > 0) && (cross(b,c,p) > 0) && (cross(c,a,p) > 0)) return true;
-		return false;
-}
 
 void drawline(int (&pix)[SIZE][SIZE], Point p1, Point p2) {
     pair<int, int> a = make_pair(p1.x, p1.y);
@@ -133,22 +120,25 @@ int main(int argc, char **argv) {
     for (int i = 0; i < N; i++) {
         cout << "(" << points[i].x << "," << points[i].y << ")" << endl;
     }
-    vector<Point> hull = points;
-    
-    for(int x=0; x < hull.size(); x++){
-			for(int i = 0; i<hull.size(); i++){
-				for(int j = 0; j<hull.size(); j++){
-					for(int k = 0; k<hull.size(); k++){
-						if(inTriangle(hull[x], hull[i], hull[j], hull[k])){
-								hull.erase(hull.begin()+x);
-								x--;
-						}
-					}
-				}
-			}
-	}
-	pivot = hull[0];
-    sort(hull.begin(), hull.end(), angle);
+    vector<Point> lower;
+    for (int i = 0; i < N; ++i) {
+        while (lower.size() >= 2 && (cross(lower[lower.size() - 2], lower[lower.size() - 1], points[i]) <= 0)) {
+            lower.pop_back();
+        }
+        lower.push_back(points[i]);
+    }
+    vector<Point> upper;
+
+    for (int i = N - 1; i >= 0; i--) {
+        while (upper.size() >= 2 && (cross(upper[upper.size() - 2], upper[upper.size() - 1], points[i]) <= 0)) {
+            upper.pop_back();
+        }
+        upper.push_back(points[i]);
+    }
+    lower.pop_back();
+    vector<Point> hull;
+    hull.insert(hull.end(), lower.begin(), lower.end());
+    hull.insert(hull.end(), upper.begin(), upper.end());
     cout << "The hull is: " << endl;
     cout << "(" << hull[0].x << "," << hull[0].y << ")" << endl;
     for (int i = 1; i < hull.size(); i++) {
