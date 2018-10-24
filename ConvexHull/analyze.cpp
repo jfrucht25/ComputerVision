@@ -185,7 +185,7 @@ int main(int argc, char* argv[]){
 	file << "N\tGraham\tTriangle\n";
 	clock_t t1, t2;
 	float diff;
-	for(int i=20; i<500; i+=20){
+	for(int i=10; i<250; i+=10){
     		cout << i << "\t";
 		file << i << "\t";
 		t1=clock();
