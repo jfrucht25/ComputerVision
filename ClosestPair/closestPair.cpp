@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <algorithm>
 #include <cmath>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +21,18 @@ class Point{
 		x = a;
 		y = b;
 	}
+	Point(){
+		x=0;
+		y=0;
+	}
 };
+
+int compX(Point a, Point b){
+	return (a.x-b.x);
+}
+int compY(Point a, Point b){
+	return (a.y-b.y);
+}
 
 ostream &operator<<(ostream &strm, const Point &p) {
     return strm << "(" << p.x << "," << p.y << ")";
@@ -39,24 +51,72 @@ double dist(Point a, Point b){
 	return sqrt((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y));
 }
 
-pair<Point,Point> bruteForce(vector<Point> points){
-	pair<Point, Point> min_dist(points[0], points[1]);
-	for(int i=0; i<points.size()-1; i++){
-		for(int j=i+1; j<points.size(); j++){
+double bruteForce(vector<Point> points, int a, int b){
+	double min_dist = 100;;
+	for(int i=a; i<b; i++){
+		for(int j=i+1; j<b; j++){
 			if(i==j) continue;
-			double d1=dist(points[i], points[j]);
-			double d2=dist(min_dist.first, min_dist.second);
-			if(d1<d2){
-				min_dist = make_pair(points[i], points[j]);
-			}
+			min_dist= min(dist(points[i], points[j]), min_dist);
 		}
 	}
 	return min_dist;
 }
 
+double closestStrip (vector<Point> strip, double d){
+	double minPair = d;
+	sort(strip.begin(), strip.end(), compY);
+	for (int i = 0; i < strip.size(); ++i) 
+        	for (int j = i+1; (j < strip.size()) && ((strip[j].y - strip[i].y) < minPair); ++j) 
+            		if (dist(strip[i],strip[j]) < minPair)
+                		minPair = dist(strip[i], strip[j]);
+  
+	return minPair; 
+}
+double recursiveHelper(vector<Point> points, int a, int b){
+	if(b-a <= 3){
+		return bruteForce(points, a, b);
+	}
+	int midIndex = (b+a)/2;
+	Point midPoint = points[midIndex];
+		
+	double dl = recursiveHelper(points, a, midIndex+1);
+	double dr = recursiveHelper(points, midIndex+1, b);
+	
+        double d = min(dl, dr);
+	
+        vector<Point> strip;
+        for(int i=0; i<points.size(); i++){
+                if(abs(points[i].x-midPoint.x) < d){
+                        strip.push_back(points[i]);
+                }
+        }
+        double stripD = closestStrip(strip, d);
+	return min(stripD, d);
+}
+double recursive(vector<Point> points){
+	sort(points.begin(), points.end(), compX);
+	return recursiveHelper(points, 0, points.size());
+}
+
 int main(int argc, char* argv[]){
 	srand(time(NULL));
-	pair<Point, Point> closest = bruteForce(generatePoints(90));
-	cout << closest.first << " " << closest.second << " " << dist(closest.first, closest.second) << endl;
+	cout << "N\tBruteForce\tRecursive\n";
+	clock_t t1, t2;
+	float diff;
+	vector<Point> points;
+	for(int i=1000; i<200000; i+=1000){
+		cout << i << "\t";
+		points = generatePoints(i);
+		t1=clock();
+		bruteForce(points, 0, i);
+		t2=clock();
+		diff = ((float)t2-(float)t1)/CLOCKS_PER_SEC;
+		cout << diff << "\t";
+		t1=clock();
+                recursive(points);
+                t2=clock();
+                diff = ((float)t2-(float)t1)/CLOCKS_PER_SEC;
+                cout << diff << "\n";
+	}
 	return 0;
 }
