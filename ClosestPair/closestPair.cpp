@@ -28,11 +28,11 @@ class Point{
 	}
 };
 
-int compX(Point a, Point b){
-	return (a.x-b.x);
+bool compX(Point a, Point b){
+	return (a.x<b.x);
 }
-int compY(Point a, Point b){
-	return (a.y-b.y);
+bool compY(Point a, Point b){
+	return (a.y<b.y);
 }
 
 ostream &operator<<(ostream &strm, const Point &p) {
@@ -42,8 +42,7 @@ ostream &operator<<(ostream &strm, const Point &p) {
 vector<Point> generatePoints(int N){
 	vector<Point> points;
         for (int i = 0; i < N; i++) {
-                Point p((1.0*rand())/RAND_MAX,(1.0*rand())/RAND_MAX);
-                points.push_back(p);
+                points.push_back(Point((1.0*rand())/RAND_MAX,(1.0*rand())/RAND_MAX));
         }
 	return points;
 }
@@ -66,7 +65,7 @@ double closestStrip (vector<Point> strip, double d){
 	double minPair = d;
 	sort(strip.begin(), strip.end(), compY);
 	for (int i = 0; i < (strip.size()-1); ++i){
-        	for (int j = i+1; j < strip.size() && abs(strip[i].y-strip[j].y)<minPair; ++j){
+        	for (int j = i+1; j < strip.size() &&(strip[j].y-strip[i].y<minPair); ++j){
             			minPair = min(minPair, dist(strip[i], strip[j]));
 		}
   	}
@@ -100,23 +99,23 @@ double recursive(vector<Point> points){
 
 int main(int argc, char* argv[]){
 	srand(time(NULL));
-	//cout << "N\tBruteForce\tRecursive\n";
+	cout << "N\tBruteForce\tRecursive\n";
 	clock_t t1, t2;
 	float diff;
 	vector<Point> points;
-	points = generatePoints(10);
-	cout << bruteForce(points, 0, 10) << endl;
-	cout << recursive(points) << endl;
+	//points = generatePoints(100);
+	//cout << bruteForce(points, 0, 100) << endl;
+	//cout << recursive(points) << endl;
 	for(int i=1000; i<200000; i+=1000){
 		cout << i << "\t";
 		points = generatePoints(i);
 		t1=clock();
-		bruteForce(points, 0, i);
+		double b = bruteForce(points, 0, i);
 		t2=clock();
 		diff = ((float)t2-(float)t1)/CLOCKS_PER_SEC;
 		cout << diff << "\t";
 		t1=clock();
-                recursive(points);
+                double r = recursive(points);
                 t2=clock();
                 diff = ((float)t2-(float)t1)/CLOCKS_PER_SEC;
                 cout << diff << "\n";
