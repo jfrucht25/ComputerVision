@@ -11,7 +11,7 @@
 #include <time.h>
 #include <float.h>
 
-#define SIZE 2000
+#define SIZE 10000000
 
 using namespace std;
 
@@ -29,15 +29,6 @@ class Point{
 		y=0;
 	}
 };
-
-int compX(const void* a, const void* b){
-	Point* p1 = (Point *)a;
-	Point* p2 = (Point *)b;
-	return (p1->x - p2->x);
-}
-int compY(const void* a, const void* b){
-	return (((Point*)a)->y-((Point*)b)->y);
-}
 
 ostream &operator<<(ostream &strm, const Point &p) {
     return strm << "(" << p.x << "," << p.y << ")";
@@ -57,7 +48,7 @@ double bruteForce(Point points[], int size){
 	}
 	return min_dist;
 }
-
+Point temp[SIZE];
 double closestStrip (Point strip[], int size, double d){
 	double minPair = d;
 	sort(strip, strip+size, [](Point const & a, Point const & b) -> bool { return a.y < b.y; } );
@@ -78,37 +69,34 @@ double recursiveHelper(Point points[], int size){
 	double dr = recursiveHelper(points+midIndex, size-midIndex);
 	
         double d = min(dl, dr);
-
-	Point strip[size];
 	int j=0;
         for(int i=0; i<size; i++){
                 if(abs(points[i].x-midPoint.x) < d){
-                        strip[j] = points[i];
+                        temp[j] = points[i];
 			j++;
                 }
         }
-        double stripD = closestStrip(strip, j, d);
+        double stripD = closestStrip(temp, j, d);
 	return min(stripD, d);
 }
 double recursive(Point points[], int size){
 	sort(points, points+size, [](Point const & a, Point const & b) -> bool { return a.x < b.x; } );
 	return recursiveHelper(points, size);
 }
-
+Point points[SIZE];
 int main(int argc, char* argv[]){
 	srand(time(NULL));
-	Point points[100];
-	for(int i=0; i<100; i++){
-		points[i] = Point(1.0*rand()/RAND_MAX, 1.0*rand()/RAND_MAX);
-	}
-	cout << bruteForce(points, 100) << endl;
-	cout << recursive(points, 100) << endl;
+	//for(int i=0; i<1000000; i++){
+	//	points[i] = Point(1.0*rand()/RAND_MAX, 1.0*rand()/RAND_MAX);
+	//}
+	//cout << "t" << endl;
+	//cout << bruteForce(points, 1000000) << endl;
+	//cout << recursive(points, 1000000) << endl;
 	cout << "N\tBruteForce\tRecursive\n";
 	clock_t t1, t2;
 	float diff;
-	for(int i=10000; i<=1000000; i+=10000){
+	for(int i=SIZE/100; i<=SIZE; i+=SIZE/100){
 		cout << i << "\t";
-		Point points[i];
 		for(int j=0; j<i; j++){
 			points[j] = Point(1.0*rand()/RAND_MAX, 1.0*rand()/RAND_MAX);
 		}
