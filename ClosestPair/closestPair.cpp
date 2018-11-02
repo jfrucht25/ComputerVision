@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <float.h>
 
 using namespace std;
 
@@ -52,10 +53,9 @@ double dist(Point a, Point b){
 }
 
 double bruteForce(vector<Point> points, int a, int b){
-	double min_dist = 100;;
+	double min_dist = DBL_MAX;
 	for(int i=a; i<b; i++){
 		for(int j=i+1; j<b; j++){
-			if(i==j) continue;
 			min_dist= min(dist(points[i], points[j]), min_dist);
 		}
 	}
@@ -65,22 +65,22 @@ double bruteForce(vector<Point> points, int a, int b){
 double closestStrip (vector<Point> strip, double d){
 	double minPair = d;
 	sort(strip.begin(), strip.end(), compY);
-	for (int i = 0; i < strip.size(); ++i) 
-        	for (int j = i+1; (j < strip.size()) && ((strip[j].y - strip[i].y) < minPair); ++j) 
-            		if (dist(strip[i],strip[j]) < minPair)
-                		minPair = dist(strip[i], strip[j]);
-  
+	for (int i = 0; i < (strip.size()-1); ++i){
+        	for (int j = i+1; j < strip.size() && abs(strip[i].y-strip[j].y)<minPair; ++j){
+            			minPair = min(minPair, dist(strip[i], strip[j]));
+		}
+  	}
 	return minPair; 
 }
 double recursiveHelper(vector<Point> points, int a, int b){
 	if(b-a <= 3){
 		return bruteForce(points, a, b);
-	}
+	}	
 	int midIndex = (b+a)/2;
 	Point midPoint = points[midIndex];
 		
 	double dl = recursiveHelper(points, a, midIndex+1);
-	double dr = recursiveHelper(points, midIndex+1, b);
+	double dr = recursiveHelper(points, midIndex, b);
 	
         double d = min(dl, dr);
 	
@@ -100,10 +100,13 @@ double recursive(vector<Point> points){
 
 int main(int argc, char* argv[]){
 	srand(time(NULL));
-	cout << "N\tBruteForce\tRecursive\n";
+	//cout << "N\tBruteForce\tRecursive\n";
 	clock_t t1, t2;
 	float diff;
 	vector<Point> points;
+	points = generatePoints(10);
+	cout << bruteForce(points, 0, 10) << endl;
+	cout << recursive(points) << endl;
 	for(int i=1000; i<200000; i+=1000){
 		cout << i << "\t";
 		points = generatePoints(i);
