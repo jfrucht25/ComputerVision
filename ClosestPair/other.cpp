@@ -50,14 +50,7 @@ double bruteForce(Point points[], int size){
 }
 Point temp[SIZE];
 double closestStrip (Point strip[], int size, double d){
-	double minPair = d;
-	sort(strip, strip+size, [](Point const & a, Point const & b) -> bool { return a.y < b.y; } );
-	for (int i = 0; i < size-1; ++i){
-        	for (int j = i+1; j < size && abs(strip[i].y-strip[j].y)<minPair; ++j){
-            		minPair = min(minPair, dist(strip[i], strip[j]));
-		}
-  	}
-	return minPair; 
+	return bruteForce(strip, size);
 }
 double recursiveHelper(Point points[], int size){
 	if(size <= 3){
@@ -86,9 +79,9 @@ double recursive(Point points[], int size){
 Point points[SIZE];
 int main(int argc, char* argv[]){
 	srand(time(NULL));
-	for(int i=0; i<SIZE; i++){
-		points[i] = Point(1.0*rand()/RAND_MAX, 1.0*rand()/RAND_MAX);
-	}
+	//for(int i=0; i<1000000; i++){
+	//	points[i] = Point(1.0*rand()/RAND_MAX, 1.0*rand()/RAND_MAX);
+	//}
 	//cout << "t" << endl;
 	//cout << bruteForce(points, 1000000) << endl;
 	//cout << recursive(points, 1000000) << endl;
@@ -101,7 +94,7 @@ int main(int argc, char* argv[]){
 			points[j] = Point(1.0*rand()/RAND_MAX, 1.0*rand()/RAND_MAX);
 		}
 		t1=clock();
-		//double b =bruteForce(points, i);
+		double b =bruteForce(points, i);
 		t2=clock();
 		diff = ((float)t2-(float)t1)/CLOCKS_PER_SEC;
 		cout << diff << "\t";

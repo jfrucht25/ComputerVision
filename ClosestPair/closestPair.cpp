@@ -106,7 +106,7 @@ int main(int argc, char* argv[]){
 	//points = generatePoints(100);
 	//cout << bruteForce(points, 0, 100) << endl;
 	//cout << recursive(points) << endl;
-	for(int i=1000; i<200000; i+=1000){
+	for(int i=10; i<1000; i+=10){
 		cout << i << "\t";
 		points = generatePoints(i);
 		t1=clock();
