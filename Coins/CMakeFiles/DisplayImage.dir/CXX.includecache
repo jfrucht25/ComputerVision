@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/penny.cpp
+opencv2/opencv.hpp
+-
+

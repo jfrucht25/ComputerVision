@@ -9,6 +9,8 @@
 #include <vector>
 #include <fstream>
 
+#define THRESHOLD 128
+
 using namespace std;
 
 int WIDTH;
@@ -80,11 +82,16 @@ int main(int argc, char* argv[]){
 	
 	ofstream file;
 	file.open("out.ppm");
-	file << "P3 " <<WIDTH <<" " << HEIGHT << " 255" << endl;
+	file << "P3 " <<WIDTH <<" " << HEIGHT << " 1" << endl;
 	for(int i=0; i<HEIGHT; i++){
 		for(int j=0; j<WIDTH; j++){
 			for(int k=0; k<3; k++){
-				file << sobel[i][j] << " ";
+				if (sobel[i][j] > THRESHOLD){	
+					file << 0 << " ";
+				}
+				else{
+					file << 1 << " ";
+				}
 			}
 		}
 		file << endl;
