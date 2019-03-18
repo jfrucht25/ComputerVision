@@ -5,6 +5,7 @@
 #include <string>
 #include <iterator>
 #include <sstream>
+#include <cmath>
 #include <algorithm>
 #include <vector>
 #include <fstream>
@@ -73,9 +74,9 @@ void fillSobel(){
 	double theta;
 	for(int i=1; i<HEIGHT-1; i++){
 		for(int j=1; j<WIDTH-1; j++){
-			double conv[3][3] = {{gaussian[i-1][j-1],gaussian[i-1][j],gaussian[i-1][j+1]},
-					{gaussian[i][j-1],gaussian[i][j],gaussian[i][j+1]},
-					{gaussian[i+1][j-1],gaussian[i+1][j],gaussian[i+1][j+1]}};
+			double conv[3][3] = {{pixels[i-1][j-1],pixels[i-1][j],pixels[i-1][j+1]},
+					{pixels[i][j-1],pixels[i][j],pixels[i][j+1]},
+					{pixels[i+1][j-1],pixels[i+1][j],pixels[i+1][j+1]}};
 			int gx = convolution(x, conv);
 			int gy = convolution(y, conv);
 			g = sqrt(gx*gx + gy*gy);
@@ -117,7 +118,7 @@ void applyFilter(){
 					sum+=pixels[i+x][j+y]*filter[x][y];
 				}
 			}
-			gaussian[i+2][j+2] = sum;
+			gaussian[i+2][j+2] = sum;;
 		}
 	}
 }
@@ -125,8 +126,8 @@ void applyFilter(){
 void suppressEdges(){
 	for(int i=1; i<HEIGHT-1; i++){
 		for(int j=1; j<WIDTH-1; j++){
-			int dx = int(abs(cos(gradAngle[i][j]))+0.617);
-			int dy = int(abs(sin(gradAngle[i][j]))+0.617);
+			int dx = int(abs(cos(gradAngle[i][j])) > 0.5);
+			int dy = int(abs(sin(gradAngle[i][j])) > 0.5);
 			double a = gradMag[i+dx][j+dy];
 			double b = gradMag[i-dx][j-dy];
 			if(gradMag[i][j] < a || gradMag[i][j] < b ){
@@ -142,14 +143,23 @@ void suppressEdges(){
 void applyThreshold(){
 	for(int i=0; i<HEIGHT-1; i++){
                 for(int j=0; j<WIDTH-1; j++){
-			if(suppressed[i][j] > UPPER) threshold[i][j] = 2;
-			else if(suppressed[i][j] > LOWER) threshold[i][j] = 1;
-			else threshold[i][j] = 0;
+			if(suppressed[i][j] > UPPER){
+				threshold[i][j] = 2;
+			}
+			else if(suppressed[i][j] > LOWER){
+				threshold[i][j] = 1;\
+			}
+			else {
+				threshold[i][j] = 0;
+			}
 		}
 	}
 }
 
 bool isConnected(int i,int j,int previ, int prevj){
+	if(i<3||j<3||i>=HEIGHT-3||j>=WIDTH-3){
+		return false;
+	}
 	if(threshold[i][j] == 2){
 		return true;
 	}
@@ -157,7 +167,7 @@ bool isConnected(int i,int j,int previ, int prevj){
 		bool connected = false;
 		for(int x = -1; x<2; x++){
 			for(int y=-1; y<2; y++){
-				if(x==previ && y==prevj){
+				if((x==previ && y==prevj)||(x==0&&y==0)){
 					continue;
 				}
 				if(isConnected(i+x, y+j, i,j)){
@@ -178,7 +188,7 @@ void hysteresis(){
 				edges[i][j] = 1;
 			}
                         else if(threshold[i][j] == 1){
-				if(isConnected(i,j,-1,-1)){
+				if(true/*isConnected(i,j,-1,-1)*/){
 					edges[i][j]=1;
 				}
 				else{
@@ -198,20 +208,22 @@ int main(int argc, char* argv[]){
 	applyFilter();
 	fillSobel();
 	suppressEdges();
+	applyThreshold();
 	hysteresis();	
 
 	ofstream file;
 	file.open("out.ppm");
-	file << "P3 " <<WIDTH <<" " << HEIGHT << " 1" << endl;
+	file << "P3 " <<WIDTH <<" " << HEIGHT << " 255" << endl;
 	for(int i=0; i<HEIGHT; i++){
 		for(int j=0; j<WIDTH; j++){
 			for(int k=0; k<3; k++){
-				if (edges[i][j] > 0){	
+				file<<int(edges[i][j])*255<<" ";
+				/*if (pixels[i][j] < THRESHOLD){	
 					file << 0 << " ";
 				}
 				else{
 					file << 1 << " ";
-				}
+				}*/
 			}
 		}
 		file << endl;

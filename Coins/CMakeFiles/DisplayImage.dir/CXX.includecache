@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/penny.cpp
-opencv2/opencv.hpp
+/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/DisplayImage.cpp
+opencv2/imgproc/imgproc.hpp
+/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/opencv2/imgproc/imgproc.hpp
+iostream
+-
+stdio.h
 -
 

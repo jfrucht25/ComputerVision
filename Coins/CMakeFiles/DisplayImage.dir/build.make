@@ -57,38 +57,38 @@ include CMakeFiles/DisplayImage.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/DisplayImage.dir/flags.make
 
-CMakeFiles/DisplayImage.dir/penny.cpp.o: CMakeFiles/DisplayImage.dir/flags.make
-CMakeFiles/DisplayImage.dir/penny.cpp.o: penny.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/DisplayImage.dir/penny.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DisplayImage.dir/penny.cpp.o -c /afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/penny.cpp
+CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o: CMakeFiles/DisplayImage.dir/flags.make
+CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o: DisplayImage.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o -c /afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/DisplayImage.cpp
 
-CMakeFiles/DisplayImage.dir/penny.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DisplayImage.dir/penny.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/penny.cpp > CMakeFiles/DisplayImage.dir/penny.cpp.i
+CMakeFiles/DisplayImage.dir/DisplayImage.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DisplayImage.dir/DisplayImage.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/DisplayImage.cpp > CMakeFiles/DisplayImage.dir/DisplayImage.cpp.i
 
-CMakeFiles/DisplayImage.dir/penny.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DisplayImage.dir/penny.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/penny.cpp -o CMakeFiles/DisplayImage.dir/penny.cpp.s
+CMakeFiles/DisplayImage.dir/DisplayImage.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DisplayImage.dir/DisplayImage.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins/DisplayImage.cpp -o CMakeFiles/DisplayImage.dir/DisplayImage.cpp.s
 
-CMakeFiles/DisplayImage.dir/penny.cpp.o.requires:
+CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o.requires:
 
-.PHONY : CMakeFiles/DisplayImage.dir/penny.cpp.o.requires
+.PHONY : CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o.requires
 
-CMakeFiles/DisplayImage.dir/penny.cpp.o.provides: CMakeFiles/DisplayImage.dir/penny.cpp.o.requires
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/penny.cpp.o.provides.build
-.PHONY : CMakeFiles/DisplayImage.dir/penny.cpp.o.provides
+CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o.provides: CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o.requires
+	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o.provides.build
+.PHONY : CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o.provides
 
-CMakeFiles/DisplayImage.dir/penny.cpp.o.provides.build: CMakeFiles/DisplayImage.dir/penny.cpp.o
+CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o.provides.build: CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o
 
 
 # Object files for target DisplayImage
 DisplayImage_OBJECTS = \
-"CMakeFiles/DisplayImage.dir/penny.cpp.o"
+"CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o"
 
 # External object files for target DisplayImage
 DisplayImage_EXTERNAL_OBJECTS =
 
-DisplayImage: CMakeFiles/DisplayImage.dir/penny.cpp.o
+DisplayImage: CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o
 DisplayImage: CMakeFiles/DisplayImage.dir/build.make
 DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.2.4.9
 DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_ts.so.2.4.9
@@ -117,7 +117,7 @@ CMakeFiles/DisplayImage.dir/build: DisplayImage
 
 .PHONY : CMakeFiles/DisplayImage.dir/build
 
-CMakeFiles/DisplayImage.dir/requires: CMakeFiles/DisplayImage.dir/penny.cpp.o.requires
+CMakeFiles/DisplayImage.dir/requires: CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o.requires
 
 .PHONY : CMakeFiles/DisplayImage.dir/requires
 

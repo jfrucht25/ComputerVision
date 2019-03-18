@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins2/coins.cpp
+opencv2/highgui/highgui.hpp
+/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins2/opencv2/highgui/highgui.hpp
+opencv2/imgproc/imgproc.hpp
+/afs/csl.tjhsst.edu/students/2019/2019jfrucht/ComputerVision/Coins2/opencv2/imgproc/imgproc.hpp
+iostream
+-
+stdio.h
+-
+vector
+-
+

@@ -123,32 +123,32 @@ DisplayImage/fast:
 	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/build
 .PHONY : DisplayImage/fast
 
-penny.o: penny.cpp.o
+DisplayImage.o: DisplayImage.cpp.o
 
-.PHONY : penny.o
+.PHONY : DisplayImage.o
 
 # target to build an object file
-penny.cpp.o:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/penny.cpp.o
-.PHONY : penny.cpp.o
+DisplayImage.cpp.o:
+	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.o
+.PHONY : DisplayImage.cpp.o
 
-penny.i: penny.cpp.i
+DisplayImage.i: DisplayImage.cpp.i
 
-.PHONY : penny.i
+.PHONY : DisplayImage.i
 
 # target to preprocess a source file
-penny.cpp.i:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/penny.cpp.i
-.PHONY : penny.cpp.i
+DisplayImage.cpp.i:
+	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.i
+.PHONY : DisplayImage.cpp.i
 
-penny.s: penny.cpp.s
+DisplayImage.s: DisplayImage.cpp.s
 
-.PHONY : penny.s
+.PHONY : DisplayImage.s
 
 # target to generate assembly for a file
-penny.cpp.s:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/penny.cpp.s
-.PHONY : penny.cpp.s
+DisplayImage.cpp.s:
+	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/DisplayImage.cpp.s
+.PHONY : DisplayImage.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... DisplayImage"
-	@echo "... penny.o"
-	@echo "... penny.i"
-	@echo "... penny.s"
+	@echo "... DisplayImage.o"
+	@echo "... DisplayImage.i"
+	@echo "... DisplayImage.s"
 .PHONY : help
 
 
